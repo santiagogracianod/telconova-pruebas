@@ -1,0 +1,25 @@
+# Archivos de compilación
+build/
+out/
+target/
+
+# Configuración local
+.idea/
+.vscode/
+
+# Dependencias descargadas
+.gradle/
+node_modules/
+
+# Archivos temporales
+*.log
+*.tmp
+*.swp
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Otros archivos innecesarios
+*.class
+*.iml
