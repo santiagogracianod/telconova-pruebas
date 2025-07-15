@@ -7,9 +7,6 @@ import net.serenitybdd.screenplay.targets.Target;
 @DefaultUrl("https://telconona-frontend.vercel.app/login")
 public class LoginPage extends PageObject {
 
-  // URL de la página de inicio de sesión
-  public static final String LOGIN_URL = "https://telconona-frontend.vercel.app/login";
-
   // Elementos de la página de inicio de sesión
   public static final Target USERNAME_FIELD = Target.the("campo usuario").locatedBy("//*[@id=\"email\"]");
   public static final Target PASSWORD_FIELD = Target.the("campo contraseña").locatedBy("//*[@id=\"password\"]");

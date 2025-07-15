@@ -6,10 +6,8 @@ import static org.hamcrest.Matchers.greaterThan;
 
 import co.udea.certificacion.moduloseguimientodeordenes.questions.materials.MaterialCount;
 import co.udea.certificacion.moduloseguimientodeordenes.questions.materials.SuccessMesage;
-import co.udea.certificacion.moduloseguimientodeordenes.tasks.materials.EnterQuantity;
-import co.udea.certificacion.moduloseguimientodeordenes.tasks.materials.MaterialsList;
-import co.udea.certificacion.moduloseguimientodeordenes.tasks.materials.PressAdd;
-import co.udea.certificacion.moduloseguimientodeordenes.tasks.materials.SelectMaterial;
+
+
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.Actor;
@@ -17,44 +15,46 @@ import net.serenitybdd.screenplay.actors.OnStage;
 
 public class MaterialsStepDefinition {
 
-  private Actor tecnico = OnStage.theActorCalled("Tecnico");
+    private final Actor tecnico = OnStage.theActorCalled("Tecnico");
 
-  @When("selecciono el material {string}")
-  public void seleccionoElMaterial(String string) {
-    tecnico.attemptsTo(
-        SelectMaterial.named(string));
-  }
+    // ---------------- WHEN ----------------
+    @When("selecciono el material {string}")
+    public void seleccionoElMaterial(String nombre) {
+        tecnico.attemptsTo(
+            co.udea.certificacion.moduloseguimientodeordenes.interactions.SelectMaterial.named(nombre)
+        );
+    }
 
-  @When("indico la cantidad {int}")
-  public void indicoLaCantidad(Integer quantity) {
-    tecnico.attemptsTo(
-        EnterQuantity.of(quantity));
-  }
+    @When("indico la cantidad {int}")
+    public void indicoLaCantidad(Integer cantidad) {
+        tecnico.attemptsTo(
+            co.udea.certificacion.moduloseguimientodeordenes.tasks.materials.EnterQuantity.of(cantidad)
+        );
+    }
 
-  @When("presiono el botón Añadir")
-  public void presionoElBotónAñadir() {
-    tecnico.attemptsTo(
-        PressAdd.button());
-  }
+    @When("presiono el botón Añadir")
+    public void presionoElBotonAñadir() {
+        tecnico.attemptsTo(
+            co.udea.certificacion.moduloseguimientodeordenes.tasks.materials.PressAdd.button()
+        );
+    }
 
-  @Then("debería aparecer el mensaje de éxito {string}")
-  public void deberíaAparecerElMensajeDeÉxito(String esperado) {
-    // Espera a que el mensaje de éxito sea visible
-    // Valida el contenido usando la Question
-    tecnico.should(
-        seeThat(
-            SuccessMesage.displayed(), containsString(esperado)));
-  }
+    // ---------------- THEN ----------------
+    @Then("debería aparecer el mensaje de éxito {string}")
+    public void deberiaAparecerElMensajeDeExito(String esperado) {
+        tecnico.should(
+            seeThat(SuccessMesage.displayed(), containsString(esperado))
+        );
+    }
 
-  @Then("debería ver al menos un material en la orden")
-  public void deberiaVerAlMenosUnMaterialEnLaOrden() {
-    tecnico.attemptsTo(
-        MaterialsList.toBeVisible());
+    @Then("debería ver al menos un material en la orden")
+    public void deberiaVerMateriales() {
+        // Interaction que simplemente espera que las filas aparezcan
+        tecnico.attemptsTo(co.udea.certificacion.moduloseguimientodeordenes.tasks.materials.MaterialsList.toBeVisible());
 
-    tecnico.should(
-        seeThat(
-            MaterialCount.total(), greaterThan(0)));
-
-  }
-
+        // Question que cuenta las filas
+        tecnico.should(
+            seeThat(MaterialCount.total(), greaterThan(0))
+        );
+    }
 }
