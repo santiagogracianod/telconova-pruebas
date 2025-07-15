@@ -46,7 +46,7 @@ Before running the tests, ensure you have the following installed:
 ## Setup
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repository/telconova-automation.git
+   git clone https://github.com/santiagogracianod/telconova-pruebas.git
    cd telconova-automation
 
 2. Install dependencies:
